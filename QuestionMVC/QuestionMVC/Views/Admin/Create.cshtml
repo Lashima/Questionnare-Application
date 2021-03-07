@@ -1,0 +1,53 @@
+﻿@model QuestionMVC.Models.Question
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Add your Question here</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+     
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.QuestionD, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.QuestionD, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.QuestionD, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.QType, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.QType, new List<SelectListItem>
+                  { new SelectListItem{Text="Single Select", Value="single"},
+                    new SelectListItem{Text="Multiple Select", Value="multiple"},
+                    new SelectListItem{Text="Textbox", Value="textbx"}},
+                    "Please select")
+
+                @*@Html.EditorFor(model => model.QType, new { htmlAttributes = new { @class = "form-control" } })*@
+
+
+                @Html.ValidationMessageFor(model => model.QType, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

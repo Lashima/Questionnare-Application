@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DBQuestionModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Answer">
+    <Key>
+      <PropertyRef Name="AID" />
+    </Key>
+    <Property Name="AID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AnswerD" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="QID" Type="Int32" />
+    <NavigationProperty Name="Question" Relationship="Self.FK__Answers__QID__09DE7BCC" FromRole="Answers" ToRole="Questions" />
+  </EntityType>
+  <EntityType Name="Option">
+    <Key>
+      <PropertyRef Name="OPID" />
+    </Key>
+    <Property Name="OPID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="QID" Type="Int32" />
+    <Property Name="Options" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Question" Relationship="Self.FK__Options__QID__0519C6AF" FromRole="Options" ToRole="Questions" />
+  </EntityType>
+  <EntityType Name="Question">
+    <Key>
+      <PropertyRef Name="QID" />
+    </Key>
+    <Property Name="QID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="QuestionD" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="QType" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Answers" Relationship="Self.FK__Answers__QID__09DE7BCC" FromRole="Questions" ToRole="Answers" />
+    <NavigationProperty Name="Options" Relationship="Self.FK__Options__QID__0519C6AF" FromRole="Questions" ToRole="Options" />
+  </EntityType>
+  <Association Name="FK__Answers__QID__09DE7BCC">
+    <End Role="Questions" Type="Self.Question" Multiplicity="0..1" />
+    <End Role="Answers" Type="Self.Answer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Questions">
+        <PropertyRef Name="QID" />
+      </Principal>
+      <Dependent Role="Answers">
+        <PropertyRef Name="QID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Options__QID__0519C6AF">
+    <End Role="Questions" Type="Self.Question" Multiplicity="0..1" />
+    <End Role="Options" Type="Self.Option" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Questions">
+        <PropertyRef Name="QID" />
+      </Principal>
+      <Dependent Role="Options">
+        <PropertyRef Name="QID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DBQuestionEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Answers" EntityType="Self.Answer" />
+    <EntitySet Name="Options" EntityType="Self.Option" />
+    <EntitySet Name="Questions" EntityType="Self.Question" />
+    <AssociationSet Name="FK__Answers__QID__09DE7BCC" Association="Self.FK__Answers__QID__09DE7BCC">
+      <End Role="Questions" EntitySet="Questions" />
+      <End Role="Answers" EntitySet="Answers" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Options__QID__0519C6AF" Association="Self.FK__Options__QID__0519C6AF">
+      <End Role="Questions" EntitySet="Questions" />
+      <End Role="Options" EntitySet="Options" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

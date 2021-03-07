@@ -1,0 +1,21 @@
+﻿@model IEnumerable<QuestionMVC.Models.multipleclass>
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>List</h2>
+<table class="table table-striped">
+    <tr>
+        <td>Question</td>
+        <td>Answer</td>
+        
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Question.QuestionD</td>
+            <td>@item.Answer.AnswerD</td>
+        </tr>
+    }
+</table>
+

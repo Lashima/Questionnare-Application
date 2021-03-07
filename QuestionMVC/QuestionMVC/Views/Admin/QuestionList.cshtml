@@ -1,0 +1,24 @@
+﻿@model IEnumerable<QuestionMVC.Models.Question>
+@{
+    ViewBag.Title = "Questions";
+}
+
+<h2>Questions List</h2>
+<a href="/Admin/Create" class="btn">Create New Question</a>
+<table class="table table-striped">
+    <tr>
+        <td>Question</td>
+        <td>Type</td>
+        <td>Action</td>
+
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.QuestionD</td>
+            <td>@item.QType</td>
+            <td><a href="/Admin/OptionList/@item.QID" class="btn">options</a></td>
+        </tr>
+    }
+</table>
+

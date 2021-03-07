@@ -1,0 +1,148 @@
+﻿@model QuestionMVC.Models.Viewmodelquestion
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Please fill the form</h2>
+
+@using (Html.BeginForm("index", "Question", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div>
+        Question : @Model.QDescription
+
+    </div>
+    <hr />
+
+    @Html.HiddenFor(m => m.QuestionId, new { @id = "hdnQId" })
+    @Html.HiddenFor(m => m.Qstnype, new { @id = "hdnQTypeId" })
+
+
+    <div class="col-md-12 col-sm-12 answer-front-lis">
+        @if (Model.Qstnype == "single")
+        {
+            for (int nAnsIdx = 0; nAnsIdx < Model.option.Count(); nAnsIdx++)
+            {
+                var AnswerList = Model.option[nAnsIdx];
+                
+
+                <div class="status-inspection-radio">
+                    <div class="mt-radio-inline">
+                        <div class="mt-radio-width-1">
+                            <label class="mt-radio">
+                                <input type="radio" name="radioName" value="@Model.option[nAnsIdx].Options" />
+                                @Model.option[nAnsIdx].Options
+                                <br />
+                                <span></span>
+                            </label>
+                        </div>
+
+                    </div>
+                </div>
+
+            }
+
+        }
+        else if (Model.Qstnype == "multiple")
+        {
+            for (int nAnsIdx = 0; nAnsIdx < Model.option.Count(); nAnsIdx++)
+            {
+                var AnswerList = Model.option[nAnsIdx];
+
+
+                <div class="status-inspection-radio">
+                    <div class="mt-radio-inline">
+                        <div class="mt-radio-width-1">
+                            <label class="mt-radio">
+
+                                <input id="test" type="checkbox" name="chkname" value="@Model.option[nAnsIdx].Options" />
+
+                                @Model.option[nAnsIdx].Options
+                                <br />
+                                <span></span>
+                            </label>
+                        </div>
+
+                    </div>
+                </div>
+
+            }
+
+        }
+        else if (Model.Qstnype == "textbx")
+        {
+            <input type="text" class="form-control" id="txtAnswer" />
+
+        }
+    </div>
+
+
+    <input id="btnsub" onclick="savefunction()" type="button" value="Submit" class="btn btn-default" />
+
+
+}
+<script>
+
+	function savefunction(){
+        var Answer = new Object();
+		Answer.QId = $('#hdnQId').val();
+		var type = $("#hdnQTypeId").val();
+		var answerlist = [];
+		if (type == "single") {
+            
+			var selectedoption = $('input[name=radioName]:checked').val();
+			answerlist.push(selectedoption);
+			
+
+		}
+		else if (type == "multiple") {
+
+            $('input[name="chkname"]:checked').each(function() {
+   answerlist.push(this.value);
+
+
+			
+});
+
+		}
+		else {
+			var textbv = $('#txtAnswer').val();
+			alert(textbv);
+			answerlist.push(textbv);
+            
+
+		}
+		Answer.AnswerlIst = answerlist;
+		if (Answer != null) {
+            $.ajax({
+                type: "POST",
+                url: "/Question/submitanswer",
+                data: JSON.stringify(Answer),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    if (response != null) {
+
+						alert("success")
+                    } else {
+                        alert("Something went wrong");
+                    }
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        }
+
+	}
+
+
+</script>
+
+
+
+

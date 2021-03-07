@@ -1,0 +1,73 @@
+﻿@model QuestionMVC.Models.Option
+
+@{
+    ViewBag.Title = "Createoption";
+}
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		$("#btnaddoption").click(function () {
+			Addoptiontolist();
+
+
+		});
+});
+
+	function Addoptiontolist()
+	{
+		if ($("#txtoption").val() === "") {
+			alert("option not be empty");
+			$("#txtoption").focus();
+			return false;
+		}
+
+		if ($("#tableoption tr").length() === 4) {
+			alert("option not more than 4");
+            return false;
+		}
+       //txtoption
+        //tableoption
+
+	}
+
+</script>
+
+
+
+<h2>Createoption</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+    <h4>Option</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    @Html.HiddenFor(m=> m.QID)
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Options, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Options, new { htmlAttributes = new { @class = "form-control" ,@id="txtoption"} })
+            @Html.ValidationMessageFor(model => model.Options, "", new { @class = "text-danger" })
+        </div>
+    </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+    }
+
+<table id="tableoption" class="table table-condensed" style="width:100%">
+    <tr></tr>
+</table>
+
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>

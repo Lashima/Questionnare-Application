@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DBQuestionModelStoreContainer" CdmEntityContainer="DBQuestionEntities">
+    <EntitySetMapping Name="Answers">
+      <EntityTypeMapping TypeName="DBQuestionModel.Answer">
+        <MappingFragment StoreEntitySet="Answers">
+          <ScalarProperty Name="AID" ColumnName="AID" />
+          <ScalarProperty Name="AnswerD" ColumnName="AnswerD" />
+          <ScalarProperty Name="QID" ColumnName="QID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Options">
+      <EntityTypeMapping TypeName="DBQuestionModel.Option">
+        <MappingFragment StoreEntitySet="Options">
+          <ScalarProperty Name="OPID" ColumnName="OPID" />
+          <ScalarProperty Name="QID" ColumnName="QID" />
+          <ScalarProperty Name="Options" ColumnName="Options" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Questions">
+      <EntityTypeMapping TypeName="DBQuestionModel.Question">
+        <MappingFragment StoreEntitySet="Questions">
+          <ScalarProperty Name="QID" ColumnName="QID" />
+          <ScalarProperty Name="QuestionD" ColumnName="QuestionD" />
+          <ScalarProperty Name="QType" ColumnName="QType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
